@@ -10,9 +10,9 @@ const SECTIONS = ["home", "books", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
 
 const NAV_LABELS: Record<Section, string> = {
-  contact: "Contact",
-  books: "Books",
   home: "About",
+  books: "Books",
+  contact: "Contact",
 };
 
 /* ── component ───────────────────────────────────────────── */
@@ -51,7 +51,7 @@ export function SiteShell({ books }: { books: Book[] }) {
     <>
       {/* ── Sticky nav ──────────────────────────────────────── */}
       <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 h-12 border-b border-white/10 bg-void/90 backdrop-blur-md">
-        {(["contact", "books", "home"] as Section[]).map((id) => (
+        {(["home", "books", "contact"] as Section[]).map((id) => (
           <NavItem
             key={id}
             label={NAV_LABELS[id]}
@@ -78,7 +78,6 @@ export function SiteShell({ books }: { books: Book[] }) {
   );
 }
 
-/* ── Nav item ─────────────────────────────────────────────── */
 function NavItem({
   label,
   active,
@@ -91,17 +90,19 @@ function NavItem({
   return (
     <button
       onClick={onClick}
-      className="relative text-xs tracking-widest uppercase font-body transition-colors duration-300"
+      className="w-24 relative text-xs tracking-widest uppercase font-body transition-colors duration-300"
       style={{ color: active ? "#f0ede8" : "#6b6b6b", letterSpacing: "0.15em" }}
     >
-      {label}
-      {active && (
-        <motion.span
-          layoutId="nav-dot"
-          className="absolute -bottom-[1px] left-0 right-0 h-px bg-pearl"
-          transition={{ type: "spring", stiffness: 400, damping: 35 }}
-        />
-      )}
+      <span className="relative inline-block">
+        {label}
+        {active && (
+          <motion.span
+            layoutId="nav-dot"
+            className="absolute -bottom-[1px] left-0 right-0 h-px bg-pearl"
+            transition={{ type: "spring", stiffness: 400, damping: 35 }}
+          />
+        )}
+      </span>
     </button>
   );
 }
