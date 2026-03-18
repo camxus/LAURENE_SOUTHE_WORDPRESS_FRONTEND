@@ -308,7 +308,7 @@ const ContactSection = forwardRef<HTMLElement>((_, ref) => (
       <div className="flex gap-16 sm:gap-24">
         {/* Instagram */}
         <a
-          href="https://instagram.com"
+          href="https://instagram.com/laurenesouthe"
           target="_blank"
           rel="noopener noreferrer"
           className="group flex flex-col items-center gap-4"
@@ -328,7 +328,7 @@ const ContactSection = forwardRef<HTMLElement>((_, ref) => (
 
         {/* Email */}
         <a
-          href="mailto:contact@laurenesouthe.com"
+          href="mailto:contact@laurenesouthe.work"
           className="group flex flex-col items-center gap-4"
         >
           <motion.div
