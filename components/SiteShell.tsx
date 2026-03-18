@@ -10,9 +10,9 @@ const SECTIONS = ["home", "books", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
 
 const NAV_LABELS: Record<Section, string> = {
-  home: "About",
-  books: "Books",
   contact: "Contact",
+  books: "Books",
+  home: "About",
 };
 
 /* ── component ───────────────────────────────────────────── */
