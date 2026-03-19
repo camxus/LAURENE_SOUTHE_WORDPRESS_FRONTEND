@@ -145,8 +145,7 @@ const HomeSection = forwardRef<HTMLElement>((_, ref) => (
         className="font-display text-5xl sm:text-6xl font-light tracking-tight text-pearl leading-none"
         style={{ fontStyle: "italic" }}
       >
-        Lauréne {" "}
-        <span className="not-italic font-semibold">Southè</span>
+        Laurène
       </h1>
 
       <motion.p
@@ -155,9 +154,7 @@ const HomeSection = forwardRef<HTMLElement>((_, ref) => (
         transition={{ delay: 0.6, duration: 0.8 }}
         className="mt-8 text-sm text-pearl-dim leading-relaxed font-body font-light"
       >
-        Auteure de romans contemporains explorant
-        <br />
-        la mémoire, l'identité et le désir.
+        A writer in every from written.
       </motion.p>
 
       <motion.div
