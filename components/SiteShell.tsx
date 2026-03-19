@@ -347,7 +347,7 @@ const ContactSection = forwardRef<HTMLElement>((_, ref) => (
         className="font-display text-lg font-light text-pearl/30 mt-4"
         style={{ fontStyle: "italic" }}
       >
-        Lauréne Southè
+        Laurène
       </p>
     </motion.div>
   </section>
