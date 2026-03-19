@@ -6,12 +6,12 @@ import type { Book } from "@/lib/api";
 import { BookModal } from "./BookModal";
 
 /* ── helpers ─────────────────────────────────────────────── */
-const SECTIONS = ["home", "books", "contact"] as const;
+const SECTIONS = ["home", "works", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
 
 const NAV_LABELS: Record<Section, string> = {
   home: "About",
-  books: "Books",
+  works: "Works",
   contact: "Contact",
 };
 
@@ -22,7 +22,7 @@ export function SiteShell({ books }: { books: Book[] }) {
 
   const refs = {
     home: useRef<HTMLElement>(null),
-    books: useRef<HTMLElement>(null),
+    works: useRef<HTMLElement>(null),
     contact: useRef<HTMLElement>(null),
   };
 
@@ -51,7 +51,7 @@ export function SiteShell({ books }: { books: Book[] }) {
     <>
       {/* ── Sticky nav ──────────────────────────────────────── */}
       <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 h-12 border-b border-white/10 bg-void/90 backdrop-blur-md">
-        {(["home", "books", "contact"] as Section[]).map((id) => (
+        {(["home", "works", "contact"] as Section[]).map((id) => (
           <NavItem
             key={id}
             label={NAV_LABELS[id]}
@@ -64,7 +64,7 @@ export function SiteShell({ books }: { books: Book[] }) {
       {/* ── Sections ────────────────────────────────────────── */}
       <main>
         <HomeSection ref={refs.home} />
-        <BooksSection ref={refs.books} books={books} onSelect={setSelectedBook} />
+        <BooksSection ref={refs.works} books={books} onSelect={setSelectedBook} />
         <ContactSection ref={refs.contact} />
       </main>
 
