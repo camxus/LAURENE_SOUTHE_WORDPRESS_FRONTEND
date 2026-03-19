@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download } from "lucide-react";
+import { X, Download, BookOpen } from "lucide-react";
 import type { Book } from "@/lib/api";
 
 const TRUNCATE_AT = 220;
@@ -10,6 +10,7 @@ const TRUNCATE_AT = 220;
 export function BookModal({ book, onClose }: { book: Book; onClose: () => void }) {
   const [descOpen, setDescOpen]           = useState(false);
   const [backCoverOpen, setBackCoverOpen] = useState(false);
+  const [pdfOpen, setPdfOpen]             = useState(false);
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -125,16 +126,14 @@ export function BookModal({ book, onClose }: { book: Book; onClose: () => void }
               )}
 
               {book.book_pdf && (
-                <a
-                  href={book.book_pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => setPdfOpen(true)}
                   className="flex items-center gap-2 text-xs font-body tracking-widest uppercase text-accent hover:text-pearl transition-colors duration-200"
                   style={{ letterSpacing: "0.15em" }}
                 >
-                  <Download size={13} strokeWidth={1.5} />
+                  <BookOpen size={13} strokeWidth={1.5} />
                   Read Now
-                </a>
+                </button>
               )}
             </div>
           </div>
@@ -207,7 +206,6 @@ export function BookModal({ book, onClose }: { book: Book; onClose: () => void }
               onClick={(e) => e.stopPropagation()}
               className="relative z-10 max-w-xs w-full"
             >
-              {/* Close sits above the image */}
               <button
                 onClick={() => setBackCoverOpen(false)}
                 className="absolute -top-8 right-0 text-pearl/30 hover:text-pearl transition-colors"
@@ -228,6 +226,73 @@ export function BookModal({ book, onClose }: { book: Book; onClose: () => void }
               >
                 Back Cover
               </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── PDF reader modal ─────────────────────────────────── */}
+      <AnimatePresence>
+        {pdfOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[70] flex flex-col"
+            onClick={() => setPdfOpen(false)}
+          >
+            <div className="absolute inset-0 bg-black/95 backdrop-blur-md" />
+
+            {/* Top bar */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-white/10 bg-void-2/80 backdrop-blur-sm flex-shrink-0"
+            >
+              <p
+                className="font-display text-sm font-light text-pearl/70 italic truncate max-w-[70%]"
+              >
+                {title}
+              </p>
+
+              <div className="flex items-center gap-4">
+                {/* Download fallback */}
+                <a
+                  href={book.book_pdf}
+                  download
+                  className="flex items-center gap-1.5 text-[10px] tracking-widest uppercase text-pearl/30 hover:text-pearl transition-colors font-body"
+                  style={{ letterSpacing: "0.15em" }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Download size={12} strokeWidth={1.5} />
+                  Download
+                </a>
+
+                <button
+                  onClick={() => setPdfOpen(false)}
+                  className="text-pearl/30 hover:text-pearl transition-colors"
+                >
+                  <X size={16} strokeWidth={1.5} />
+                </button>
+              </div>
+            </motion.div>
+
+            {/* PDF embed */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.15, duration: 0.35 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 flex-1 min-h-0"
+            >
+              <iframe
+                src={`${book.book_pdf}#toolbar=1&navpanes=0&scrollbar=1&view=FitH`}
+                className="w-full h-full border-0"
+                title={title}
+              />
             </motion.div>
           </motion.div>
         )}
