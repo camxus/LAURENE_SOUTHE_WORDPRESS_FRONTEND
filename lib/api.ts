@@ -31,6 +31,7 @@ export interface Book {
   book_pdf: string;
   download_count: number;
   cover_image: string;
+  back_cover_image: string;
 }
 
 export async function fetchBooks(): Promise<Book[]> {
