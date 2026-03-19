@@ -325,7 +325,7 @@ const ContactSection = forwardRef<HTMLElement>((_, ref) => (
 
         {/* Email */}
         <a
-          href="mailto:contact@laurenesouthe.work"
+          href="mailto:laurene.southe@gmail.com"
           className="group flex flex-col items-center gap-4"
         >
           <motion.div
