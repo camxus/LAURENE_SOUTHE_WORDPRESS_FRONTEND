@@ -6,12 +6,12 @@ import type { Book } from "@/lib/api";
 import { BookModal } from "./BookModal";
 
 /* ── helpers ─────────────────────────────────────────────── */
-const SECTIONS = ["home", "works", "contact"] as const;
+const SECTIONS = ["home", "books", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
 
 const NAV_LABELS: Record<Section, string> = {
   home: "About",
-  works: "Works",
+  books: "Books",
   contact: "Contact",
 };
 
@@ -22,7 +22,7 @@ export function SiteShell({ books }: { books: Book[] }) {
 
   const refs = {
     home: useRef<HTMLElement>(null),
-    works: useRef<HTMLElement>(null),
+    books: useRef<HTMLElement>(null),
     contact: useRef<HTMLElement>(null),
   };
 
@@ -51,7 +51,7 @@ export function SiteShell({ books }: { books: Book[] }) {
     <>
       {/* ── Sticky nav ──────────────────────────────────────── */}
       <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 h-12 border-b border-white/10 bg-void/90 backdrop-blur-md">
-        {(["home", "works", "contact"] as Section[]).map((id) => (
+        {(["home", "books", "contact"] as Section[]).map((id) => (
           <NavItem
             key={id}
             label={NAV_LABELS[id]}
@@ -64,7 +64,7 @@ export function SiteShell({ books }: { books: Book[] }) {
       {/* ── Sections ────────────────────────────────────────── */}
       <main>
         <HomeSection ref={refs.home} />
-        <BooksSection ref={refs.works} books={books} onSelect={setSelectedBook} />
+        <BooksSection ref={refs.books} books={books} onSelect={setSelectedBook} />
         <ContactSection ref={refs.contact} />
       </main>
 
@@ -190,7 +190,7 @@ const BooksSection = forwardRef<
         className="text-xs tracking-widest text-pearl-dim uppercase mb-10 text-center font-body"
         style={{ letterSpacing: "0.2em" }}
       >
-        Works
+        Books
       </motion.p>
 
       {books.length === 0 ? (
@@ -344,7 +344,7 @@ const ContactSection = forwardRef<HTMLElement>((_, ref) => (
 
       {/* Signature */}
       <p
-        className="font-display text-lg font-light text-pearl/30 mt-4"
+        className="font-display text-md font-light text-pearl/30 mt-4"
         style={{ fontStyle: "italic" }}
       >
         Laurène
